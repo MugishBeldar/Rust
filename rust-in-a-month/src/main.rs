@@ -169,24 +169,76 @@
 //     };
 // }
 
-enum ThingsInTheSky {
-    Sun,
-    Star,
+// enum ThingsInTheSky {
+//     Sun,
+//     Star,
+// }
+// fn create_sun_star(time: i32) -> ThingsInTheSky {
+//     match time {
+//         6..=18 => ThingsInTheSky::Sun,
+//         _ => ThingsInTheSky::Star,
+//     }
+// }
+// fn check_sky_status(sky_status: &ThingsInTheSky) {
+//     match sky_status {
+//         ThingsInTheSky::Sun => println!("i can see sun"),
+//         ThingsInTheSky::Star => print!("i can see star"),
+//     }
+// }
+// fn main() {
+//     let time = 19;
+//     let sky_status = create_sun_star(time);
+//     check_sky_status(&sky_status);
+// }
+
+//-----------------------------------------has map
+// use std::collections::HashMap;
+// fn main() {
+//     let a = String::from("a");
+//     let b = String::from("b");
+//     let mut c = HashMap::new();
+//     // c.insert(&a, "aaa");
+//     // c.insert(&b, "bbb");
+//     c.insert(a, 10);
+//     c.insert(b, 20);
+
+//     println!("{:#?}", c);
+//     let key_name = String::from("a");
+//     let avalue = c.get(&key_name);
+//     println!("{:?}", avalue);
+
+//     for (key, value) in &c {
+//         println!("key = {}, value = {}", key, value);
+//     }
+
+//     c.insert(String::from("a"), 00);
+//     c.insert(String::from("a"), 40);
+//     println!("{:#?}",c);
+    
+//     c.entry(String::from("a")).or_insert(55);
+//     c.entry(String::from("a")).or_insert(90);
+// }
+//------------------------------------------------error handling
+use std::fs::File;
+use std::io:: ErrorKind;
+
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
 }
-fn create_sun_star(time: i32) -> ThingsInTheSky {
-    match time {
-        6..=18 => ThingsInTheSky::Sun,
-        _ => ThingsInTheSky::Star,
-    }
-}
-fn check_sky_status(sky_status: &ThingsInTheSky) {
-    match sky_status {
-        ThingsInTheSky::Sun => println!("i can see sun"),
-        ThingsInTheSky::Star => print!("i can see star"),
-    }
-}
+
 fn main() {
-    let time = 19;
-    let sky_status = create_sun_star(time);
-    check_sky_status(&sky_status);
+    let f = File::open("hello1.txt");
+    let f = match f {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("hello1.txt") {
+                Ok(fc) => fc,
+                Err(err) => panic!("Error while creating file: {:?}", err),
+            },
+            _ => panic!("Error opening file: {:?}", error),
+        },
+    };
+    println!("{:#?}", f);
 }
+

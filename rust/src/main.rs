@@ -516,33 +516,201 @@
 
 //----------------------------------module
 // 1. single module
-mod module_1 {
-    pub fn details() {
-        println!("from module one");
-    }
-}
-// 2. sub module
-mod module_2 {
-    pub fn details() {
-        println!("from module_2");
-    }
-}
-mod module_3 {
-    pub fn details() {
-        println!("from module_3");
-    }
-}
-// 3. nested module
-mod module_4 {
-    pub mod nested_module_1 {
-        pub fn details() {
-            println!("from nested module 1")
-        }
-    }
-}
-fn main() {
-    module_1::details();
-    module_2::details();
-    module_3::details();
-    module_4::nested_module_1::details();
+// mod module_1 {
+//     pub fn details() {
+//         println!("from module one");
+//     }
+// }
+// // 2. sub module
+// mod module_2 {
+//     pub fn details() {
+//         println!("from module_2");
+//     }
+// }
+// mod module_3 {
+//     pub fn details() {
+//         println!("from module_3");
+//     }
+// }
+// // 3. nested module
+// mod module_4 {
+//     pub mod nested_module_1 {
+//         pub fn details() {
+//             println!("from nested module 1")
+//         }
+//     }
+// }
+// fn main() {
+//     module_1::details();
+//     module_2::details();
+//     module_3::details();
+//     module_4::nested_module_1::details();
+// }
+
+// //---------------------------------more about struct
+// struct User {
+//     name: String,
+//     email: String,
+//     active: bool,
+//     sign_count: i32,
+// }
+// fn build_user(name: String, email: String) -> User {
+//     User {
+//         name,
+//         email,
+//         active: true,
+//         sign_count: 1,
+//     }
+// }
+// fn main() {
+//     let user1 = User {
+//         name: String::from("traits"),
+//         email: String::from("traits@protonmail.com"),
+//         active: true,
+//         sign_count: 0,
+//     };
+//     println!("{}", user1.name);
+//     let user2 = build_user("bogythegot".to_string(), "bogythegot@gmail.com".to_string());
+//     println!("{}", user2.email);
+//     let user3 = User {
+//         name: String::from("chain"),
+//         email: String::from("chain@protonmail"),
+//         ..user2
+//     };
+//     println!("{}", user3.active);
+//     println!("{}", user3.sign_count);
+// }
+
+//---------------------------------- more about struct
+// #[derive(Debug)]
+// struct Rectangle {
+//     length: i32,
+//     width: i32,
+// }
+// impl Rectangle {
+//     fn area(&self) -> i32 {
+//         self.length * self.width
+//     }
+//     fn big_rect_area(&self, other: &Rectangle) -> i32 {
+//         if self.length >= other.length && self.width >= other.width {
+//             self.length * self.width
+//         } else {
+//             other.length * other.width
+//         }
+//     }
+// }
+// // impl Rectangle {
+// //     fn squar(&self)->Rectangle{
+// //         Rectangle{
+// //             width: size,
+// //             length: size
+// //         }
+// //     }
+// // }
+// fn main() {
+//     let rect1 = Rectangle {
+//         length: 10,
+//         width: 10,
+//     };
+//     println!("rect 1 => {:#?}", rect1);
+//     let rect1_area = rect1.area();
+//     println!("rect1 area {}", rect1_area);
+//     let rect2 = Rectangle {
+//         length:  0,
+//         width: 0,
+//     };
+//     let rect2_area = rect1.big_rect_area(&rect2);
+//     println!("rect2 area {}", rect2_area);
+//     // let rect3 = Rectangle::squar(10impl Rectangle {
+// //     fn squar(&self)->Rectangle{
+// //         Rectangle{
+// //             width: size,
+// //             length: size
+// //         }
+// //     }
+// // });
+// }
+
+//---------------------------------------more about enum
+// #[derive(Debug)]
+// enum IpVersion {
+//     v4(u8, u8, u8, u8),
+//     v6(String),
+// }
+// #[derive(Debug)]
+// struct IpKind {
+//     kind: IpVersion,
+//     address: String,
+// }
+// #[derive(Debug)]
+// enum Messages {
+//     Quit,
+//     Move { x: i32, y: i32 },
+//     Write(String),
+//     ChangeColor(i32, i32, i32, i32),
+// }
+// struct QuitMessage;
+
+// struct MoveMessage {
+//     x: i32, y: i32,
+// }
+
+// struct WriteMessage(String);
+
+// struct ChangeColorMessage(i32, i32, i32, i32);
+
+// fn main() {
+//     let localhost_v4 = IpVersion::v4(127, 0, 0, 1);
+//     let localhost_v6 = IpVersion::v6(String::from("127.0.0.1"));
+//     println!("{:?}", localhost_v4);
+//     println!("{:?}", localhost_v6);
+// }
+
+
+//--------------------------------option and unwrap
+// fn main() {
+//     let x = 10;
+//     let y: Option<i32> = Some(5);
+//     // let y: Option<i32> = None;
+//     println!("sum is {}", x + y.unwrap_or(0));
+// }
+
+//----------------------------------match with enum
+// #[derive(Debug)]
+// enum IndState {
+//     Gujarat,
+//     Delhi,
+// }
+// enum Notes {
+//     ten,
+//     twenty,
+//     fifty,
+//     hundred(IndState),
+// }
+// fn get_notes(notes: Notes) -> i32 {
+//     match notes {
+//         Notes::ten => {
+//             println!("ten rupee notes");
+//             10
+//         },
+//         Notes::twenty => {
+//             println!("twenty rupee notes");
+//             20
+//         },
+//         Notes::fifty => {
+//             println!("fifty rupee notes");
+//             50
+//         },
+//         Notes::hundred(state) => {
+//             println!("hundred rupee notes from {:?}", state);
+//             100
+//         },
+//     }
+// }
+// fn main() {
+//     let rupee = get_notes(Notes::hundred(IndState::Gujarat));
+//     println!("{}", rupee);
+// }
+fn main() { 
+    
 }
