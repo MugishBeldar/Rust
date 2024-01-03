@@ -214,31 +214,161 @@
 //     c.insert(String::from("a"), 00);
 //     c.insert(String::from("a"), 40);
 //     println!("{:#?}",c);
-    
+
 //     c.entry(String::from("a")).or_insert(55);
 //     c.entry(String::from("a")).or_insert(90);
 // }
 //------------------------------------------------error handling
-use std::fs::File;
-use std::io:: ErrorKind;
+// use std::fs::File;
+// use std::io:: ErrorKind;
 
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
+
+// use core::num;
+// fn main() {
+//     let f = File::open("hello1.txt").expect("failed to open file");
+//     println!("{:#?}",f);
+//     // let f = match f {
+//     //     Ok(file) => file,
+//     //     Err(error) => match error.kind() {
+//     //         ErrorKind::NotFound => match File::create("hello1.txt") {
+//     //             Ok(fc) => fc,
+//     //             Err(err) => panic!("Error while creating file: {:?}", err),
+//     //         },
+//     //         _ => panic!("Error opening file: {:?}", error),
+//     //     },
+//     // };
+//     // println!("{:#?}", f);
+// }
+//-------------------------------------- error propogation
+// use std::{fs::File, io, io::Read, char::REPLACEMENT_CHARACTER};
+// fn read_user_name_from_file() -> Result<String, io::Error> {
+//     let mut file = match File::open("hello.txt") {
+//         Ok(file) => file,
+//         Err(e) => return Err(e),
+//     };
+
+//     let mut contents = String::new();
+//     match file.read_to_string(&mut contents) {
+//         Ok(_) => Ok(contents),
+//         Err(e) => Err(e),
+//     }
+// }
+// simplify above function
+// fn read_user_name_from_file()->Result<String, io::Error>{
+//     let mut name = String::new();
+//     let mut file = File::open("/home/ad.rapidops.com/mugish.beldar/Mugish Git Repository/gitrepo/Rust/rust-in-a-month/src/files/hello.txt")?;
+//     file.read_to_string(&mut name)?;  // used to add file contents in to name
+//     Ok(name)
+// }
+// fn main() {
+//     match read_user_name_from_file() {
+//         Ok(username) => println!("User name: {}", username),
+//         Err(e) => eprintln!("Error reading file: {}", e),
+//     }
+// }
+
+// //-------------------------------generic type
+// struct Gentype<T, U> {
+//     x: T,
+//     y: U,
+// }
+// enum Option<T> {
+//     Some(T),
+//     None,
+// }
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
+// fn main() {
+//     let number = vec![1, 2, 3, 4, 5];
+//     let larg_num = largest_number(number);
+//     println!("{}", larg_num);
+//     let character = vec!['a', 'b', 'c', 'd', 'e'];
+//     println!("{}", largest_number(character));
+
+//     let p1 = Gentype { x: 10, y: 11 };
+//     let p2 = Gentype { x: 2.0, y: 3.0 };
+// }
+
+// // fn largest_number(number: Vec<i32>) -> i32 {
+// //     let mut largest_num = number[0];
+// //     for num in number {
+// //         if num > largest_num {
+// //             largest_num = num;
+// //         }
+// //     }
+// //     largest_num
+// // }
+// // generic typed function
+// fn largest_number<T: PartialOrd + Copy>(number: Vec<T>) -> T {
+//     let mut largest_num = number[0];
+//     for num in number {
+//         if num > largest_num {
+//             largest_num = num;
+//         }
+//     }
+//     largest_num
+// }
+
+//----------------------------------Traits
+// use std::fmt::format;
+// pub struct NewsArticle {
+//     author: String,
+//     headline: String,
+//     content: String,
+// }
+// impl Summary for NewsArticle {
+//     fn summarize(&self) -> String {
+//         format!("{} by {}", self.headline, self.author)
+//     }
+// }
+// pub struct Tweet {
+//     username: String,
+//     content: String,
+//     retweet: bool,
+//     reply: bool,
+// }
+// impl Summary for Tweet {
+//     fn summarize(&self) -> String {
+//         format!("{} by {}", self.retweet, self.username)
+//     }
+// }
+// pub trait Summary {
+//     fn summarize(&self) -> String;
+// }
+
+// fn main() {
+//     let first_tweet = Tweet {
+//         username: String::from("abc"),
+//         content: String::from("xyz"),
+//         reply: false,
+//         retweet: false,
+//     };
+//     let first_newsarticle = NewsArticle {
+//         author: String::from("abc"),
+//         headline: String::from("headline"),
+//         content:String::from("content"),
+//     };
+//     println!("{}", first_tweet.summarize());
+//     println!("{}", first_newsarticle.summarize());
+// }
+
+fn longest_str<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
-
 fn main() {
-    let f = File::open("hello1.txt");
-    let f = match f {
-        Ok(file) => file,
-        Err(error) => match error.kind() {
-            ErrorKind::NotFound => match File::create("hello1.txt") {
-                Ok(fc) => fc,
-                Err(err) => panic!("Error while creating file: {:?}", err),
-            },
-            _ => panic!("Error opening file: {:?}", error),
-        },
-    };
-    println!("{:#?}", f);
-}
+    let str1 = String::from("abc");
+    let str2 = String::from("xyzd");
 
+    let result = longest_str(str1.as_str(), str2.as_str());
+    println!("{}", result);
+}

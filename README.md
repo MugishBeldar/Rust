@@ -6,3 +6,4 @@ str1.len()
 str1.chars()
 str1.chars().count()
 
+lifetimel
