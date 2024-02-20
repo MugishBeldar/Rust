@@ -1,1 +1,0 @@
-/home/ad.rapidops.com/mugish.beldar/Mugish\ Git\ Repository/gitrepo/Rust/gussing_game/target/debug/gussing_game: /home/ad.rapidops.com/mugish.beldar/Mugish\ Git\ Repository/gitrepo/Rust/gussing_game/src/main.rs
